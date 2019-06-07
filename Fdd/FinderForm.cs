@@ -170,7 +170,7 @@ namespace Fdd
 						}
 					}
 				}
-				return loc;
+				return loc.Length > 0 ? loc : filePath;
 			}
 		}
 
