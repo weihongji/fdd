@@ -91,7 +91,7 @@
 			// 
 			this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.statusBarLabel1});
-			this.statusStrip1.Location = new System.Drawing.Point(0, 639);
+			this.statusStrip1.Location = new System.Drawing.Point(0, 664);
 			this.statusStrip1.Name = "statusStrip1";
 			this.statusStrip1.Padding = new System.Windows.Forms.Padding(1, 0, 19, 0);
 			this.statusStrip1.Size = new System.Drawing.Size(484, 22);
@@ -112,7 +112,7 @@
 			this.panelResult.Margin = new System.Windows.Forms.Padding(4);
 			this.panelResult.Name = "panelResult";
 			this.panelResult.Padding = new System.Windows.Forms.Padding(4);
-			this.panelResult.Size = new System.Drawing.Size(484, 590);
+			this.panelResult.Size = new System.Drawing.Size(484, 615);
 			this.panelResult.TabIndex = 1;
 			// 
 			// txtResult
@@ -125,7 +125,7 @@
 			this.txtResult.Name = "txtResult";
 			this.txtResult.ReadOnly = true;
 			this.txtResult.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-			this.txtResult.Size = new System.Drawing.Size(476, 582);
+			this.txtResult.Size = new System.Drawing.Size(476, 607);
 			this.txtResult.TabIndex = 0;
 			this.txtResult.Text = "Servlet.ajax_db_20190313015526.BAK\r\nServlet.allentxparks_db_20190308040345.BAK\r\nS" +
     "ervlet.santamonicarecreation_db_20190221222757.BAK";
@@ -135,7 +135,7 @@
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-			this.ClientSize = new System.Drawing.Size(484, 661);
+			this.ClientSize = new System.Drawing.Size(484, 686);
 			this.Controls.Add(this.panelResult);
 			this.Controls.Add(this.statusStrip1);
 			this.Controls.Add(this.panelFilter);

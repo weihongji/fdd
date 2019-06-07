@@ -49,6 +49,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Backup.cs" />
+    <Compile Include="Command.cs" />
     <Compile Include="Filter.cs" />
     <Compile Include="FinderForm.cs">
       <SubType>Form</SubType>

@@ -16,12 +16,14 @@ namespace Fdd
 		private string lastFilter = "";
 		private List<Backup> backups;
 		private bool show_reloaded = false;
+		private bool raw_format = false;
 
 		public FinderForm() {
 			InitializeComponent();
 		}
 
 		private void FinderForm_Load(object sender, EventArgs e) {
+			this.raw_format = Util.GetConfigString("item_format").Equals("raw");
 			searchOnUI();
 		}
 
@@ -34,14 +36,44 @@ namespace Fdd
 				e.Handled = e.SuppressKeyPress = true;
 
 				string s = this.txtFilter.Text;
-				if (s.Equals("x") || s.Equals("q") || s.Equals("c") || s.Equals("exit") || s.Equals("quit") || s.Equals("close")) {
-					Application.Exit();
+
+				// A command is ordered. Process it.
+				if (isCommand(s)) {
+					Cmd cmd = Command.getCommand(s);
+					switch (cmd) {
+						case Cmd.Help:
+							this.txtResult.Text = Command.getHelp();
+							this.statusBarLabel1.Text = "Help doc";
+							break;
+						case Cmd.Exit:
+							Application.Exit();
+							break;
+						case Cmd.FormatRaw:
+							this.raw_format = true;
+							redoSearch();
+							break;
+						case Cmd.FormatParsed:
+							this.raw_format = false;
+							redoSearch();
+							break;
+						default:
+							break;
+					}
 				}
 			}
 		}
 
 		private void txtFilter_KeyUp(object sender, KeyEventArgs e) {
 			string filter = this.txtFilter.Text;
+
+			// Command is entered. Don't do search.
+			if (isCommand(filter)) {
+				if (filter.Equals("!")) {
+					this.statusBarLabel1.Text = "Entering a command...";
+				}
+				return;
+			}
+
 			if (this.lastFilter.Equals(filter)) {
 				return; // Don't launch a search if the filter is same as that in last search.
 			}
@@ -55,11 +87,20 @@ namespace Fdd
 			searchOnUI();
 		}
 
+		private bool isCommand(string text) {
+			return text.StartsWith("!") || text.Equals("?") || text.Equals("help");
+		}
+
+		private void redoSearch() {
+			this.txtFilter.Text = this.lastFilter;
+			searchOnUI();
+		}
+
 		private void searchOnUI() {
 			List<Backup> found = searchBackup(new Filter(this.txtFilter.Text));
 			List<string> items = new List<string>(found.Count);
 			foreach (var item in found) {
-				items.Add(item.ToString());
+				items.Add(this.raw_format ? item.FullName : item.ToString());
 			}
 			this.txtResult.Text = String.Join("\r\n", items.ToArray());
 			this.statusBarLabel1.Text = String.Format("{0} {1} found.", items.Count, items.Count < 2 ? "record" : "records");
