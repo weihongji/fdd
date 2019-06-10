@@ -33,6 +33,18 @@ namespace Fdd
 			set { location = value; }
 		}
 
+		public string SortBy {
+			get {
+				var s = fullName == null ? "" : fullName.Trim().ToLower();
+				if (s.StartsWith("servlet.")) {
+					return s.Substring(8);
+				}
+				else {
+					return s;
+				}
+			}
+		}
+
 		public Backup(string fullName)
 			: this(fullName, "") {
 		}
@@ -80,7 +92,7 @@ namespace Fdd
 		}
 
 		public int CompareTo(Backup o) {
-			return this.fullName.CompareTo(o.fullName);
+			return this.SortBy.CompareTo(o.SortBy);
 		}
 	}
 }
