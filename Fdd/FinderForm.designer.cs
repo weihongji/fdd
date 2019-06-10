@@ -53,7 +53,7 @@
 			this.panelFilter.Location = new System.Drawing.Point(0, 0);
 			this.panelFilter.Margin = new System.Windows.Forms.Padding(4);
 			this.panelFilter.Name = "panelFilter";
-			this.panelFilter.Size = new System.Drawing.Size(484, 49);
+			this.panelFilter.Size = new System.Drawing.Size(534, 49);
 			this.panelFilter.TabIndex = 0;
 			// 
 			// btnRefresh
@@ -69,6 +69,7 @@
 			// 
 			// txtFilter
 			// 
+			this.txtFilter.Font = new System.Drawing.Font("Arial", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 			this.txtFilter.Location = new System.Drawing.Point(49, 13);
 			this.txtFilter.Margin = new System.Windows.Forms.Padding(4);
 			this.txtFilter.Name = "txtFilter";
@@ -94,7 +95,7 @@
 			this.statusStrip1.Location = new System.Drawing.Point(0, 664);
 			this.statusStrip1.Name = "statusStrip1";
 			this.statusStrip1.Padding = new System.Windows.Forms.Padding(1, 0, 19, 0);
-			this.statusStrip1.Size = new System.Drawing.Size(484, 22);
+			this.statusStrip1.Size = new System.Drawing.Size(534, 22);
 			this.statusStrip1.TabIndex = 2;
 			this.statusStrip1.Text = "statusBar";
 			// 
@@ -112,20 +113,21 @@
 			this.panelResult.Margin = new System.Windows.Forms.Padding(4);
 			this.panelResult.Name = "panelResult";
 			this.panelResult.Padding = new System.Windows.Forms.Padding(4);
-			this.panelResult.Size = new System.Drawing.Size(484, 615);
+			this.panelResult.Size = new System.Drawing.Size(534, 615);
 			this.panelResult.TabIndex = 1;
 			// 
 			// txtResult
 			// 
 			this.txtResult.BackColor = System.Drawing.SystemColors.Window;
 			this.txtResult.Dock = System.Windows.Forms.DockStyle.Fill;
+			this.txtResult.Font = new System.Drawing.Font("Arial", 10F);
 			this.txtResult.Location = new System.Drawing.Point(4, 4);
 			this.txtResult.Margin = new System.Windows.Forms.Padding(4);
 			this.txtResult.Multiline = true;
 			this.txtResult.Name = "txtResult";
 			this.txtResult.ReadOnly = true;
 			this.txtResult.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-			this.txtResult.Size = new System.Drawing.Size(476, 607);
+			this.txtResult.Size = new System.Drawing.Size(526, 607);
 			this.txtResult.TabIndex = 0;
 			this.txtResult.Text = "Servlet.ajax_db_20190313015526.BAK\r\nServlet.allentxparks_db_20190308040345.BAK\r\nS" +
     "ervlet.santamonicarecreation_db_20190221222757.BAK";
@@ -135,7 +137,7 @@
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-			this.ClientSize = new System.Drawing.Size(484, 686);
+			this.ClientSize = new System.Drawing.Size(534, 686);
 			this.Controls.Add(this.panelResult);
 			this.Controls.Add(this.statusStrip1);
 			this.Controls.Add(this.panelFilter);

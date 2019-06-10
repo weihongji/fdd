@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
 namespace Fdd
@@ -10,6 +10,7 @@ namespace Fdd
 	{
 		private string fullName;
 		private string db;
+		private long size; // in byte. -1 = N/A
 		private DateTime date;
 		private string location;
 
@@ -21,6 +22,11 @@ namespace Fdd
 		public string DB {
 			get { return db; }
 			set { db = value; }
+		}
+
+		public long Size {
+			get { return size; }
+			set { size = value; }
 		}
 
 		public DateTime Date {
@@ -45,21 +51,43 @@ namespace Fdd
 			}
 		}
 
-		public Backup(string fullName)
-			: this(fullName, "") {
+		public Backup(string entry)
+			: this(entry, "") {
 		}
 
-		public Backup(string name, string location) {
-			this.fullName = name == null ? "" : name.Trim(); // Servlet.ajax_db_20190313015526.BAK
-			this.date = DateTime.MinValue;
+		public Backup(string entry, string location) {
+			entry = entry == null ? "" : entry.Trim(); // E:\Backup\Servlet.ajax_db_20190313015526.BAK    2192498688
+
+			// Remove the directory path.
+			int index = entry.LastIndexOf('\\');
+			if (index > 0) {
+				entry = entry.Substring(index + 1).Trim();
+			}
+
+			// File name & size
+			string delimiter = "    "; // Delimiter between file name and size. It's a string of 4 spaces.
+			index = entry.IndexOf(delimiter);
+			if (index > 0) {
+				fullName = entry.Substring(0, index);
+				entry = entry.Substring(index + 4).Trim(); // the size part
+				if (!long.TryParse(entry, out size)) {
+					size = -1;
+				}
+			}
+			else {
+				fullName = entry;
+				size = -1;
+			}
+
+			date = DateTime.MinValue;
 			this.location = location == null ? "" : location;
 
-			if (String.IsNullOrEmpty(this.fullName)) {
+			if (String.IsNullOrEmpty(fullName)) {
 				return;
 			}
 
-			name = name.Trim().ToLower();
-
+			// db & date
+			string name = fullName.ToLower();
 			string s = "servlet.";
 			if (name.StartsWith(s) && !name.Equals(s)) {
 				name = name.Substring(s.Length);
@@ -71,12 +99,12 @@ namespace Fdd
 			}
 
 			s = "_db_";
-			int index = name.IndexOf(s);
+			index = name.IndexOf(s);
 			if (index > 0) {
 				string dt = name.Substring(index + s.Length);
-				if (dt.Length >= 8 && System.Text.RegularExpressions.Regex.IsMatch(dt, @"^20\d{6}")) {
+				if (dt.Length >= 8 && Regex.IsMatch(dt, @"^20\d{6}")) {
 					dt = dt.Substring(0, 4) + "-" + dt.Substring(4, 2) + "-" + dt.Substring(6, 2);
-					if (DateTime.TryParse(dt, out this.date)) {
+					if (DateTime.TryParse(dt, out date)) {
 						db = name.Substring(0, index);
 					}
 				}

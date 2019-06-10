@@ -1,45 +1,45 @@
-lstgqa02trainer_to_hongliang.bak
-Servlet.ajax_db_20190313015526.BAK
-Servlet.allentxparks_db_20190308040345.BAK
-Servlet.burnaby65_db_20190312232257.BAK
-Servlet.capeparks_db_20190228182431.BAK
-Servlet.cityfortstjohn_db_20190310201225.BAK
-Servlet.cityfortstjohn_db_20190317211803.BAK
-Servlet.cnbreg_db_20190416223138.BAK
-Servlet.cosumnescsd_db_20190225184220.BAK
-Servlet.cosumnescsd_db_20190305221934.BAK
-Servlet.denver_db_20190313200753.BAK
-Servlet.ebparks_db_20190221182257.BAK
-Servlet.essexconnect_db_20190226180534.BAK
-Servlet.gilbertaz_db_20190307223945.BAK
-Servlet.greenwichy_db_201903111456.BAK
-Servlet.henricorecandparks_db_20190305003134.BAK
-Servlet.kansascityymca_db_20190304173132.BAK
-Servlet.lafayetteparks_db_20190304004244.BAK
-Servlet.lansingymca_db_20190303185546.BAK
-Servlet.lansingymca_db_201903291723.BAK
-Servlet.leisureonline_db_20190312191616.BAK
-Servlet.marinwood_db_20190311190620.BAK
-Servlet.matthewsfun_db_20190313193556.BAK
-Servlet.mecklenburgparks_db_20190221004904.BAK
-Servlet.mecklenburgparks_db_20190227225820.BAK
-Servlet.mecklenburgparks_db_20190315224842.BAK
-Servlet.montgomerycounty_db_20190219013324.BAK
-Servlet.montgomerycounty_db_20190311234939.BAK.lnk
-Servlet.pearland_db_20190307013244.BAK
-Servlet.rmparks_db_20190313182206.BAK
-Servlet.santamonicarecreation_db_20190221222757.BAK
-Servlet.scottsdale_db_20190227164139.BAK
-Servlet.seattle_db_20190305182430.BAK
-Servlet.sfrecpark_db_20190220000806.BAK
-Servlet.sfrecpark_db_20190221231905.BAK
-Servlet.tampaymca_db_20190219001705.BAK
-Servlet.terrace_db_20190318185106.BAK
-Servlet.tuscanyresidentsassoc_db_20190306222645.BAK
-Servlet.uregina_db_20190313210819.BAK.lnk
-Servlet.vancouver_db_20190310012651.bak
-Servlet.westvanrec_db_20190319003255.BAK
-Servlet.wsd3cc_db_20190307181238.BAK
-Servlet.ymcadetroit_db_20190220203641.BAK
-Servlet.ymcalincoln_db_20190301000007.BAK
-Servlet.ymcaofthesuncoast_db_20190307235934.BAK
+E:\Backup\lstgqa02trainer_to_hongliang.bak    232827392
+E:\Backup\Servlet.ajax_db_20190313015526.BAK    2192498688
+E:\Backup\Servlet.allentxparks_db_20190308040345.BAK    1439609344
+E:\Backup\Servlet.burnaby65_db_20190312232257.BAK    25685892096
+E:\Backup\Servlet.capeparks_db_20190228182431.BAK    4212299264
+E:\Backup\Servlet.cityfortstjohn_db_20190310201225.BAK    2393669632
+E:\Backup\Servlet.cityfortstjohn_db_20190317211803.BAK    2400178176
+E:\Backup\Servlet.cnbreg_db_20190416223138.BAK    3327238656
+E:\Backup\Servlet.cosumnescsd_db_20190225184220.BAK    1365548544
+E:\Backup\Servlet.cosumnescsd_db_20190305221934.BAK    1382187520
+E:\Backup\Servlet.denver_db_20190313200753.BAK    18364135936
+E:\Backup\Servlet.ebparks_db_20190221182257.BAK    10079745536
+E:\Backup\Servlet.essexconnect_db_20190226180534.BAK    588066816
+E:\Backup\Servlet.gilbertaz_db_20190307223945.BAK    1937649664
+E:\Backup\Servlet.greenwichy_db_201903111456.BAK    358941184
+E:\Backup\Servlet.henricorecandparks_db_20190305003134.BAK    2048351744
+E:\Backup\Servlet.kansascityymca_db_20190304173132.BAK    27742405632
+E:\Backup\Servlet.lafayetteparks_db_20190304004244.BAK    1846084608
+E:\Backup\Servlet.lansingymca_db_20190303185546.BAK    100401664
+E:\Backup\Servlet.lansingymca_db_201903291723.BAK    184563712
+E:\Backup\Servlet.leisureonline_db_20190312191616.BAK    9279385600
+E:\Backup\Servlet.marinwood_db_20190311190620.BAK    1393925120
+E:\Backup\Servlet.matthewsfun_db_20190313193556.BAK    195146752
+E:\Backup\Servlet.mecklenburgparks_db_20190221004904.BAK    6418737664
+E:\Backup\Servlet.mecklenburgparks_db_20190227225820.BAK    6447119872
+E:\Backup\Servlet.mecklenburgparks_db_20190315224842.BAK    6535628288
+E:\Backup\Servlet.montgomerycounty_db_20190219013324.BAK    19958068224
+E:\Backup\Servlet.montgomerycounty_db_20190311234939.BAK.lnk    1134
+E:\Backup\Servlet.pearland_db_20190307013244.BAK    2041261056
+E:\Backup\Servlet.rmparks_db_20190313182206.BAK    2135900160
+E:\Backup\Servlet.santamonicarecreation_db_20190221222757.BAK    8370266624
+E:\Backup\Servlet.scottsdale_db_20190227164139.BAK    3927644160
+E:\Backup\Servlet.seattle_db_20190305182430.BAK    1446843392
+E:\Backup\Servlet.sfrecpark_db_20190220000806.BAK    5586438144
+E:\Backup\Servlet.sfrecpark_db_20190221231905.BAK    5598737920
+E:\Backup\Servlet.tampaymca_db_20190219001705.BAK    24645063168
+E:\Backup\Servlet.terrace_db_20190318185106.BAK    178700288
+E:\Backup\Servlet.tuscanyresidentsassoc_db_20190306222645.BAK    1530736640
+E:\Backup\Servlet.uregina_db_20190313210819.BAK.lnk    1025
+E:\Backup\Servlet.vancouver_db_20190310012651.bak    46971770880
+E:\Backup\Servlet.westvanrec_db_20190319003255.BAK    8541552640
+E:\Backup\Servlet.wsd3cc_db_20190307181238.BAK    1416369152
+E:\Backup\Servlet.ymcadetroit_db_20190220203641.BAK    20190198784
+E:\Backup\Servlet.ymcalincoln_db_20190301000007.BAK    7817817088
+E:\Backup\Servlet.ymcaofthesuncoast_db_20190307235934.BAK    21929364992

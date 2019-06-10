@@ -17,6 +17,7 @@ namespace Fdd
 		private List<Backup> backups;
 		private bool show_reloaded = false;
 		private bool raw_format = false;
+		private bool show_size = true;
 
 		public FinderForm() {
 			InitializeComponent();
@@ -24,6 +25,7 @@ namespace Fdd
 
 		private void FinderForm_Load(object sender, EventArgs e) {
 			this.raw_format = Util.GetConfigString("item_format").Equals("raw");
+			this.show_size = Util.GetConfigBool("show_size", true);
 			searchOnUI();
 		}
 
@@ -54,6 +56,14 @@ namespace Fdd
 							break;
 						case Cmd.FormatParsed:
 							this.raw_format = false;
+							redoSearch();
+							break;
+						case Cmd.ShowSize:
+							this.show_size = true;
+							redoSearch();
+							break;
+						case Cmd.HideSize:
+							this.show_size = false;
 							redoSearch();
 							break;
 						default:
@@ -99,8 +109,18 @@ namespace Fdd
 		private void searchOnUI() {
 			List<Backup> found = searchBackup(new Filter(this.txtFilter.Text));
 			List<string> items = new List<string>(found.Count);
+			string s = "";
 			foreach (var item in found) {
-				items.Add(this.raw_format ? item.FullName : item.ToString());
+				s = this.raw_format ? item.FullName : item.ToString();
+				if (this.show_size) {
+					if (item.Size >= 0) {
+					s += String.Format(" - {0:#,0} KB", item.Size / 1024);
+					}
+					else {
+						s += " - size:N/A";
+					}
+				}
+				items.Add(s);
 			}
 			this.txtResult.Text = String.Join("\r\n", items.ToArray());
 			this.statusBarLabel1.Text = String.Format("{0} {1} found.", items.Count, items.Count < 2 ? "record" : "records");

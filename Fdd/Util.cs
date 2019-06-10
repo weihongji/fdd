@@ -16,5 +16,27 @@ namespace Fdd
 			}
 			return defaultValue;
 		}
+
+		public static int GetConfigInt(string key, int defaultValue = 0) {
+			var config = System.Configuration.ConfigurationManager.AppSettings[key];
+
+			int i;
+			if (!string.IsNullOrEmpty(config) && int.TryParse(config, out i)) {
+				if (i > 0) {
+					return i;
+				}
+			}
+			return defaultValue;
+		}
+
+		public static bool GetConfigBool(string key, bool defaultValue = false) {
+			var config = System.Configuration.ConfigurationManager.AppSettings[key];
+
+			bool b;
+			if (!string.IsNullOrEmpty(config) && bool.TryParse(config, out b)) {
+				return b;
+			}
+			return defaultValue;
+		}
 	}
 }

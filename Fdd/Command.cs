@@ -22,6 +22,12 @@ namespace Fdd
 			else if (cmd.Equals("parsed")) {
 				return Cmd.FormatParsed;
 			}
+			else if (cmd.Equals("showsize")) {
+				return Cmd.ShowSize;
+			}
+			else if (cmd.Equals("hidesize")) {
+				return Cmd.HideSize;
+			}
 			else {
 				return Cmd.Help;
 			}
@@ -46,6 +52,8 @@ namespace Fdd
 		Help,
 		Exit,
 		FormatRaw,
-		FormatParsed
+		FormatParsed,
+		ShowSize,
+		HideSize,
 	}
 }
