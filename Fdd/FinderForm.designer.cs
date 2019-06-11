@@ -36,6 +36,7 @@
 			this.lblFilter = new System.Windows.Forms.Label();
 			this.statusStrip1 = new System.Windows.Forms.StatusStrip();
 			this.statusBarLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
+			this.statusBarLabel2 = new System.Windows.Forms.ToolStripStatusLabel();
 			this.panelResult = new System.Windows.Forms.Panel();
 			this.txtResult = new System.Windows.Forms.TextBox();
 			this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
@@ -53,7 +54,7 @@
 			this.panelFilter.Location = new System.Drawing.Point(0, 0);
 			this.panelFilter.Margin = new System.Windows.Forms.Padding(4);
 			this.panelFilter.Name = "panelFilter";
-			this.panelFilter.Size = new System.Drawing.Size(534, 49);
+			this.panelFilter.Size = new System.Drawing.Size(484, 49);
 			this.panelFilter.TabIndex = 0;
 			// 
 			// btnRefresh
@@ -91,19 +92,30 @@
 			// statusStrip1
 			// 
 			this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.statusBarLabel1});
-			this.statusStrip1.Location = new System.Drawing.Point(0, 664);
+            this.statusBarLabel1,
+            this.statusBarLabel2});
+			this.statusStrip1.Location = new System.Drawing.Point(0, 662);
 			this.statusStrip1.Name = "statusStrip1";
 			this.statusStrip1.Padding = new System.Windows.Forms.Padding(1, 0, 19, 0);
-			this.statusStrip1.Size = new System.Drawing.Size(534, 22);
+			this.statusStrip1.Size = new System.Drawing.Size(484, 24);
 			this.statusStrip1.TabIndex = 2;
 			this.statusStrip1.Text = "statusBar";
 			// 
 			// statusBarLabel1
 			// 
 			this.statusBarLabel1.Name = "statusBarLabel1";
-			this.statusBarLabel1.Size = new System.Drawing.Size(85, 17);
+			this.statusBarLabel1.Size = new System.Drawing.Size(313, 19);
+			this.statusBarLabel1.Spring = true;
 			this.statusBarLabel1.Text = "0 record found";
+			this.statusBarLabel1.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+			// 
+			// statusBarLabel2
+			// 
+			this.statusBarLabel2.BorderSides = System.Windows.Forms.ToolStripStatusLabelBorderSides.Left;
+			this.statusBarLabel2.Name = "statusBarLabel2";
+			this.statusBarLabel2.Size = new System.Drawing.Size(120, 19);
+			this.statusBarLabel2.Text = "Searched at: 12:00:00";
+			this.statusBarLabel2.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
 			// 
 			// panelResult
 			// 
@@ -113,7 +125,7 @@
 			this.panelResult.Margin = new System.Windows.Forms.Padding(4);
 			this.panelResult.Name = "panelResult";
 			this.panelResult.Padding = new System.Windows.Forms.Padding(4);
-			this.panelResult.Size = new System.Drawing.Size(534, 615);
+			this.panelResult.Size = new System.Drawing.Size(484, 613);
 			this.panelResult.TabIndex = 1;
 			// 
 			// txtResult
@@ -127,7 +139,7 @@
 			this.txtResult.Name = "txtResult";
 			this.txtResult.ReadOnly = true;
 			this.txtResult.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-			this.txtResult.Size = new System.Drawing.Size(526, 607);
+			this.txtResult.Size = new System.Drawing.Size(476, 605);
 			this.txtResult.TabIndex = 0;
 			this.txtResult.Text = "Servlet.ajax_db_20190313015526.BAK\r\nServlet.allentxparks_db_20190308040345.BAK\r\nS" +
     "ervlet.santamonicarecreation_db_20190221,222,757.BAK";
@@ -137,7 +149,7 @@
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-			this.ClientSize = new System.Drawing.Size(534, 686);
+			this.ClientSize = new System.Drawing.Size(484, 686);
 			this.Controls.Add(this.panelResult);
 			this.Controls.Add(this.statusStrip1);
 			this.Controls.Add(this.panelFilter);
@@ -170,6 +182,7 @@
 		private System.Windows.Forms.ToolStripStatusLabel statusBarLabel1;
 		private System.Windows.Forms.Button btnRefresh;
 		private System.Windows.Forms.ToolTip toolTip1;
+		private System.Windows.Forms.ToolStripStatusLabel statusBarLabel2;
     }
 }
 

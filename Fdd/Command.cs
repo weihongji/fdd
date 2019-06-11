@@ -19,14 +19,14 @@ namespace Fdd
 			else if(cmd.Equals("raw")) {
 				return Cmd.FormatRaw;
 			}
-			else if (cmd.Equals("parsed")) {
+			else if (cmd.Equals("parse")) {
 				return Cmd.FormatParsed;
 			}
-			else if (cmd.Equals("showsize")) {
-				return Cmd.ShowSize;
+			else if (cmd.Equals("size")) {
+				return Cmd.FileSize;
 			}
-			else if (cmd.Equals("hidesize")) {
-				return Cmd.HideSize;
+			else if (cmd.Equals("time")) {
+				return Cmd.SearchTime;
 			}
 			else {
 				return Cmd.Help;
@@ -42,11 +42,11 @@ namespace Fdd
 			help.AppendLine("Start with an exclamation (!) to launch a command.");
 			help.AppendLine("Supported commands as below:");
 			help.AppendLine("-----------------  -----------------");
-			help.AppendLine("x,q,c:\t\t Exit this tool. Same as: exit, quit, close");
-			help.AppendLine("raw:\t\t Show name of backup files.");
-			help.AppendLine("parsed:\t\t Show parsed information of back files.");
-			help.AppendLine("showsize:\t Show size of back files.");
-			help.AppendLine("hidesize:\t Hide size of back files.");
+			help.AppendLine("x,q,c:\t Exit this tool. Same as: exit, quit, close");
+			help.AppendLine("raw:\t Show name of backup files.");
+			help.AppendLine("parse:\t Show parsed information of back files.");
+			help.AppendLine("size:\t Show/hide size of back files.");
+			help.AppendLine("time:\t Show/hide timestamp of last search on status bar.");
 			help.AppendLine("-----------------  -----------------");
 			help.AppendLine("Example: !exit");
 
@@ -60,7 +60,7 @@ namespace Fdd
 		Exit,
 		FormatRaw,
 		FormatParsed,
-		ShowSize,
-		HideSize,
+		FileSize,
+		SearchTime
 	}
 }

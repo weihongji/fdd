@@ -14,38 +14,46 @@ namespace Fdd
 	public partial class FinderForm : Form
 	{
 		private string lastFilter = "";
+		private string lastFailedFilter = "";
 		private List<Backup> backups;
-		private bool show_reloaded = false;
 		private bool raw_format = false;
 		private bool show_size = true;
+		private bool show_last_search_time = false;
+
+		// Hard to understand
+		private bool processing_command = false;
 
 		public FinderForm() {
 			InitializeComponent();
 		}
 
 		private void FinderForm_Load(object sender, EventArgs e) {
-			// Init controls
-			this.txtFilter.Text = "";
-			this.txtResult.Text = "";
-
 			// Load configuration
 			this.raw_format = Util.GetConfigString("item_format").Equals("raw");
 			this.show_size = Util.GetConfigBool("show_size", true);
+			this.show_last_search_time = Util.GetConfigBool("show_last_search_time", false);
 
 			// Load backup records
-			searchOnUI();
+			loadBackup();
+
+			// Init controls
+			this.txtFilter.Text = "";
+			this.txtResult.Text = "";
+			this.statusBarLabel1.Text = "Ready";
+			this.statusBarLabel2.Text = "N/A";
+			showTimestamp();
 		}
 
 		private void txtFilter_KeyDown(object sender, KeyEventArgs e) {
+			this.processing_command = false;
+
 			if (e.KeyCode == Keys.Escape) {
 				this.txtFilter.Text = "";
 				e.Handled = e.SuppressKeyPress = true; // Disable the beep when ESC key is pressed within the combox
 			}
 			else if (e.KeyCode == Keys.Enter) {
 				e.Handled = e.SuppressKeyPress = true;
-
 				string s = this.txtFilter.Text;
-
 				// A command is ordered. Process it.
 				if (isCommand(s)) {
 					Cmd cmd = Command.getCommand(s);
@@ -65,46 +73,82 @@ namespace Fdd
 							this.raw_format = false;
 							redoSearch();
 							break;
-						case Cmd.ShowSize:
-							this.show_size = true;
+						case Cmd.FileSize:
+							this.show_size = !this.show_size;
 							redoSearch();
 							break;
-						case Cmd.HideSize:
-							this.show_size = false;
-							redoSearch();
+						case Cmd.SearchTime:
+							this.show_last_search_time = !this.show_last_search_time;
+							showTimestamp();
+							resetFilter();
 							break;
 						default:
 							break;
 					}
+					this.processing_command = true;
 				}
 			}
+		}
+
+		private void resetFilter() {
+			this.txtFilter.Text = this.lastFilter;
+		}
+
+		private void showTimestamp() {
+			this.statusBarLabel2.Visible = this.show_last_search_time;
 		}
 
 		private void txtFilter_KeyUp(object sender, KeyEventArgs e) {
-			string filter = this.txtFilter.Text;
-			if (String.IsNullOrWhiteSpace(filter)) {
+			string filter = this.txtFilter.Text.Trim();
+
+			if (isCommand(filter) || this.processing_command) { // Command is entered and has been handled in KeyDown event.
+				this.processing_command = false;
 				return;
 			}
 
-			// Command is entered. Don't do search.
-			if (isCommand(filter)) {
-				if (filter.Equals("!")) {
-					this.statusBarLabel1.Text = "Entering a command...";
+			if (e != null && e.KeyCode == Keys.Enter) { // Forced search will be done if Enter key pressed.
+				searchOnUI();
+			}
+			else {
+				if (String.IsNullOrEmpty(filter)) {
+					this.statusBarLabel1.Text = "Ready";
+					return;
 				}
-				return;
+				else if (filter.Equals(this.lastFilter)) {
+					return; // Don't launch a search if the filter is same as that in last search. User just typing control keys like Home/End/Arrow.
+				}
+				else if (isFailedFilter(filter)) {
+					return;
+				}
+				else {
+					searchOnUI();
+				}
 			}
-
-			if (this.lastFilter.Equals(filter)) {
-				return; // Don't launch a search if the filter is same as that in last search.
-			}
-			this.lastFilter = filter;
-			searchOnUI();
 		}
 
 		private void btnRefresh_Click(object sender, EventArgs e) {
-			this.backups = null;
-			show_reloaded = true;
-			searchOnUI();
+			loadBackup();
+			redoSearch();
+
+			// Information on status bar
+			string status = this.statusBarLabel1.Text;
+			string refreshed = "Refreshed.";
+			if (!status.StartsWith(refreshed)) {
+				if (status.Length > 0) {
+					refreshed += " ";
+				}
+				this.statusBarLabel1.Text = refreshed + status;
+			}
+		}
+
+		private bool isFailedFilter(string filter) {
+			if (this.lastFailedFilter.Length > 0) {
+				return filter.IndexOf(this.lastFailedFilter) >= 0;
+			}
+			else {
+				return false;
+			}
+
 		}
 
 		private bool isCommand(string text) {
@@ -112,23 +156,21 @@ namespace Fdd
 		}
 
 		private void redoSearch() {
-			this.txtFilter.Text = this.lastFilter;
+			resetFilter();
 			searchOnUI();
 		}
 
-		private void searchOnUI() {
-			if (String.IsNullOrWhiteSpace(this.txtFilter.Text)) {
-				return;
-			}
+		private int searchOnUI() {
+			string filter = this.txtFilter.Text.Trim();
 
-			List<Backup> found = searchBackup(new Filter(this.txtFilter.Text));
+			List<Backup> found = searchBackup(new Filter(filter));
 			List<string> items = new List<string>(found.Count);
 			string s = "";
 			foreach (var item in found) {
 				s = this.raw_format ? item.FullName : item.ToString();
 				if (this.show_size) {
 					if (item.Size >= 0) {
-					s += String.Format(" - {0:#,0} KB", item.Size / 1024);
+						s += String.Format(" - {0:#,0} KB", item.Size / 1024);
 					}
 					else {
 						s += " - size:N/A";
@@ -136,12 +178,21 @@ namespace Fdd
 				}
 				items.Add(s);
 			}
+
+			this.lastFilter = filter;
+			if (items.Count == 0) {
+				if (filter.Length > 0) {
+					this.lastFailedFilter = filter;
+				}
+			}
+			else {
+				this.lastFailedFilter = "";
+			}
 			this.txtResult.Text = String.Join("\r\n", items.ToArray());
 			this.statusBarLabel1.Text = String.Format("{0} {1} found.", items.Count, items.Count < 2 ? "record" : "records");
-			if (show_reloaded) {
-				this.statusBarLabel1.Text = "Refreshed. " + this.statusBarLabel1.Text;
-				show_reloaded = false;
-			}
+			this.statusBarLabel2.Text = "Searched at: " + DateTime.Now.ToString("HH:mm:ss");
+
+			return items.Count;
 		}
 
 		private List<Backup> searchBackup(Filter filter) {
@@ -149,7 +200,7 @@ namespace Fdd
 				loadBackup();
 			}
 
-			if (filter.Name.Equals("*")) {
+			if (filter.Name.Length == 0 || filter.Name.Equals("*")) {
 				return this.backups;
 			}
 
@@ -174,6 +225,7 @@ namespace Fdd
 				}
 			}
 			this.backups.Sort();
+			this.lastFailedFilter = ""; // Clear the failed flag every time after backup is loaded.
 		}
 
 		private string getLocation(string filePath) {
