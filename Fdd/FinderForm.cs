@@ -118,6 +118,9 @@ namespace Fdd
 					return; // Don't launch a search if the filter is same as that in last search. User just typing control keys like Home/End/Arrow.
 				}
 				else if (isFailedFilter(filter)) {
+					if (filter.Length - this.lastFailedFilter.Length > 10) {
+						this.txtResult.Text = "Press '?' and Enter key to show help information.";
+					}
 					return;
 				}
 				else {
