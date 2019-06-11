@@ -54,7 +54,7 @@
 			this.panelFilter.Location = new System.Drawing.Point(0, 0);
 			this.panelFilter.Margin = new System.Windows.Forms.Padding(4);
 			this.panelFilter.Name = "panelFilter";
-			this.panelFilter.Size = new System.Drawing.Size(484, 49);
+			this.panelFilter.Size = new System.Drawing.Size(504, 49);
 			this.panelFilter.TabIndex = 0;
 			// 
 			// btnRefresh
@@ -97,14 +97,14 @@
 			this.statusStrip1.Location = new System.Drawing.Point(0, 662);
 			this.statusStrip1.Name = "statusStrip1";
 			this.statusStrip1.Padding = new System.Windows.Forms.Padding(1, 0, 19, 0);
-			this.statusStrip1.Size = new System.Drawing.Size(484, 24);
+			this.statusStrip1.Size = new System.Drawing.Size(504, 24);
 			this.statusStrip1.TabIndex = 2;
 			this.statusStrip1.Text = "statusBar";
 			// 
 			// statusBarLabel1
 			// 
 			this.statusBarLabel1.Name = "statusBarLabel1";
-			this.statusBarLabel1.Size = new System.Drawing.Size(313, 19);
+			this.statusBarLabel1.Size = new System.Drawing.Size(364, 19);
 			this.statusBarLabel1.Spring = true;
 			this.statusBarLabel1.Text = "0 record found";
 			this.statusBarLabel1.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -125,7 +125,7 @@
 			this.panelResult.Margin = new System.Windows.Forms.Padding(4);
 			this.panelResult.Name = "panelResult";
 			this.panelResult.Padding = new System.Windows.Forms.Padding(4);
-			this.panelResult.Size = new System.Drawing.Size(484, 613);
+			this.panelResult.Size = new System.Drawing.Size(504, 613);
 			this.panelResult.TabIndex = 1;
 			// 
 			// txtResult
@@ -139,7 +139,7 @@
 			this.txtResult.Name = "txtResult";
 			this.txtResult.ReadOnly = true;
 			this.txtResult.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-			this.txtResult.Size = new System.Drawing.Size(476, 605);
+			this.txtResult.Size = new System.Drawing.Size(496, 605);
 			this.txtResult.TabIndex = 0;
 			this.txtResult.Text = "Servlet.ajax_db_20190313015526.BAK\r\nServlet.allentxparks_db_20190308040345.BAK\r\nS" +
     "ervlet.santamonicarecreation_db_20190221,222,757.BAK";
@@ -149,7 +149,7 @@
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-			this.ClientSize = new System.Drawing.Size(484, 686);
+			this.ClientSize = new System.Drawing.Size(504, 686);
 			this.Controls.Add(this.panelResult);
 			this.Controls.Add(this.statusStrip1);
 			this.Controls.Add(this.panelFilter);

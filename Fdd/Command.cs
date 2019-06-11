@@ -45,7 +45,8 @@ namespace Fdd
 			help.AppendLine(String.Format("Start with an {0} ({1}) to launch a command.", cmd_prefix_name, cmd_prefix));
 			help.AppendLine("Supported commands as below:");
 			help.AppendLine("-----------------  -----------------");
-			help.AppendLine("x,q,c:\t Exit this tool. Same as: exit, quit, close");
+			help.AppendLine("help:\t Show this HELP info. Same as: ?");
+			help.AppendLine("exit:\t Exit this tool. Same as: quit, close, x, q, c.");
 			help.AppendLine("raw:\t Show name of backup files.");
 			help.AppendLine("parse:\t Show parsed information of back files.");
 			help.AppendLine("size:\t Show/hide size of back files.");
