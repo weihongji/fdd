@@ -69,11 +69,11 @@
 			// 
 			// txtFilter
 			// 
-			this.txtFilter.Font = new System.Drawing.Font("Arial", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.txtFilter.Font = new System.Drawing.Font("Courier New", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 			this.txtFilter.Location = new System.Drawing.Point(49, 13);
 			this.txtFilter.Margin = new System.Windows.Forms.Padding(4);
 			this.txtFilter.Name = "txtFilter";
-			this.txtFilter.Size = new System.Drawing.Size(330, 23);
+			this.txtFilter.Size = new System.Drawing.Size(330, 22);
 			this.txtFilter.TabIndex = 1;
 			this.txtFilter.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtFilter_KeyDown);
 			this.txtFilter.KeyUp += new System.Windows.Forms.KeyEventHandler(this.txtFilter_KeyUp);
@@ -120,7 +120,7 @@
 			// 
 			this.txtResult.BackColor = System.Drawing.SystemColors.Window;
 			this.txtResult.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.txtResult.Font = new System.Drawing.Font("Arial", 10F);
+			this.txtResult.Font = new System.Drawing.Font("Courier New", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 			this.txtResult.Location = new System.Drawing.Point(4, 4);
 			this.txtResult.Margin = new System.Windows.Forms.Padding(4);
 			this.txtResult.Multiline = true;
@@ -130,7 +130,7 @@
 			this.txtResult.Size = new System.Drawing.Size(526, 607);
 			this.txtResult.TabIndex = 0;
 			this.txtResult.Text = "Servlet.ajax_db_20190313015526.BAK\r\nServlet.allentxparks_db_20190308040345.BAK\r\nS" +
-    "ervlet.santamonicarecreation_db_20190221222757.BAK";
+    "ervlet.santamonicarecreation_db_20190221,222,757.BAK";
 			this.txtResult.WordWrap = false;
 			// 
 			// FinderForm

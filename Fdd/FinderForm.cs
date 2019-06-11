@@ -24,8 +24,15 @@ namespace Fdd
 		}
 
 		private void FinderForm_Load(object sender, EventArgs e) {
+			// Init controls
+			this.txtFilter.Text = "";
+			this.txtResult.Text = "";
+
+			// Load configuration
 			this.raw_format = Util.GetConfigString("item_format").Equals("raw");
 			this.show_size = Util.GetConfigBool("show_size", true);
+
+			// Load backup records
 			searchOnUI();
 		}
 
@@ -75,6 +82,9 @@ namespace Fdd
 
 		private void txtFilter_KeyUp(object sender, KeyEventArgs e) {
 			string filter = this.txtFilter.Text;
+			if (String.IsNullOrWhiteSpace(filter)) {
+				return;
+			}
 
 			// Command is entered. Don't do search.
 			if (isCommand(filter)) {
@@ -107,6 +117,10 @@ namespace Fdd
 		}
 
 		private void searchOnUI() {
+			if (String.IsNullOrWhiteSpace(this.txtFilter.Text)) {
+				return;
+			}
+
 			List<Backup> found = searchBackup(new Filter(this.txtFilter.Text));
 			List<string> items = new List<string>(found.Count);
 			string s = "";
@@ -135,7 +149,7 @@ namespace Fdd
 				loadBackup();
 			}
 
-			if (String.IsNullOrWhiteSpace(filter.Name) || filter.Name.Equals("*")) {
+			if (filter.Name.Equals("*")) {
 				return this.backups;
 			}
 

@@ -36,12 +36,19 @@ namespace Fdd
 		public static string getHelp() {
 			var help = new StringBuilder();
 			help.AppendLine("----------------- HELP -----------------");
-			help.AppendLine("x,q,c:\t Exit this tool. Same as: exit, quit, close");
-			help.AppendLine("raw:\t Show name of backup files.");
-			help.AppendLine("parsed:\t Show parsed information of back files.");
-
+			help.AppendLine("Type a part of the backup file name you want to search.");
+			help.AppendLine("Enter * to show all files.");
 			help.AppendLine();
-			help.AppendLine("Notes: Enter ! in Filter field to launch a command. Example: !exit");
+			help.AppendLine("Start with an exclamation (!) to launch a command.");
+			help.AppendLine("Supported commands as below:");
+			help.AppendLine("-----------------  -----------------");
+			help.AppendLine("x,q,c:\t\t Exit this tool. Same as: exit, quit, close");
+			help.AppendLine("raw:\t\t Show name of backup files.");
+			help.AppendLine("parsed:\t\t Show parsed information of back files.");
+			help.AppendLine("showsize:\t Show size of back files.");
+			help.AppendLine("hidesize:\t Hide size of back files.");
+			help.AppendLine("-----------------  -----------------");
+			help.AppendLine("Example: !exit");
 
 			return help.ToString();
 		}
