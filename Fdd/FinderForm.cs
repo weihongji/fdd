@@ -90,8 +90,16 @@ namespace Fdd
 			}
 		}
 
-		private void resetFilter() {
-			this.txtFilter.Text = this.lastFilter;
+		private bool resetFilter() {
+			if (!this.lastFilter.Equals(this.lastFailedFilter)) {
+				this.txtFilter.Text = this.lastFilter;
+				this.txtFilter.SelectAll();
+				return true;
+			}
+			else {
+				this.txtFilter.Text = "";
+				return false;
+			}
 		}
 
 		private void showTimestamp() {
@@ -155,12 +163,13 @@ namespace Fdd
 		}
 
 		private bool isCommand(string text) {
-			return text.StartsWith("!") || text.Equals("?") || text.Equals("help");
+			return text.StartsWith(Command.cmd_prefix) || text.Equals("?") || text.Equals("help");
 		}
 
 		private void redoSearch() {
-			resetFilter();
-			searchOnUI();
+			if (resetFilter()) {
+				searchOnUI();
+			}
 		}
 
 		private int searchOnUI() {
