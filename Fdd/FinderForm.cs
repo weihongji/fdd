@@ -275,7 +275,10 @@ namespace Fdd
 				}
 			}
 			this.backups.Sort();
-			this.lastFailedFilter = ""; // Clear the failed flag every time after backup is loaded.
+
+			// Clear cache flags every time after backup is loaded.
+			this.lastFailedFilter = "";
+			this.lastMatches = null;
 		}
 
 		private string getLocation(string filePath) {
