@@ -16,9 +16,11 @@ namespace Fdd
 		private string lastFilter = "";
 		private string lastFailedFilter = "";
 		private List<Backup> backups;
+		private List<Backup> lastMatches;
 		private bool raw_format = false;
 		private bool show_size = true;
 		private bool show_last_search_time = false;
+		private bool show_search_detail = false;
 
 		// Hard to understand
 		private bool processing_command = false;
@@ -32,6 +34,7 @@ namespace Fdd
 			this.raw_format = Util.GetConfigString("item_format").Equals("raw");
 			this.show_size = Util.GetConfigBool("show_size", true);
 			this.show_last_search_time = Util.GetConfigBool("show_last_search_time", false);
+			this.show_search_detail = Util.GetConfigBool("show_search_detail", false);
 
 			// Load backup records
 			loadBackup();
@@ -162,6 +165,16 @@ namespace Fdd
 
 		}
 
+		private bool isSubsetFilter(Filter filter) {
+			if (this.lastFilter.Length > 0) {
+				return filter.Name.IndexOf(this.lastFilter) >= 0;
+			}
+			else {
+				return false;
+			}
+
+		}
+
 		private bool isCommand(string text) {
 			return text.StartsWith(Command.cmd_prefix) || text.Equals("?") || text.Equals("help");
 		}
@@ -174,8 +187,8 @@ namespace Fdd
 
 		private int searchOnUI() {
 			string filter = this.txtFilter.Text.Trim();
-
-			List<Backup> found = searchBackup(new Filter(filter));
+			int candidateCount;
+			List<Backup> found = searchBackup(new Filter(filter), out candidateCount);
 			List<string> items = new List<string>(found.Count);
 			string s = "";
 			foreach (var item in found) {
@@ -201,27 +214,49 @@ namespace Fdd
 				this.lastFailedFilter = "";
 			}
 			this.txtResult.Text = String.Join("\r\n", items.ToArray());
-			this.statusBarLabel1.Text = String.Format("{0} {1} found.", items.Count, items.Count < 2 ? "record" : "records");
+			string status = String.Format("{0} {1} found.", items.Count, items.Count < 2 ? "record" : "records");
+			if (this.show_search_detail) {
+				status = String.Format("{0} {1} found in {2}.", items.Count, items.Count < 2 ? "record" : "records", candidateCount);
+			}
+			this.statusBarLabel1.Text = status;
 			this.statusBarLabel2.Text = "Searched at: " + DateTime.Now.ToString("HH:mm:ss");
 
 			return items.Count;
 		}
 
 		private List<Backup> searchBackup(Filter filter) {
+			int candidateCount;
+			return searchBackup(filter, out candidateCount);
+		}
+
+		private List<Backup> searchBackup(Filter filter, out int candidateCount) {
 			if (this.backups == null) {
 				loadBackup();
 			}
+			candidateCount = this.backups.Count;
 
 			if (filter.Name.Length == 0 || filter.Name.Equals("*")) {
 				return this.backups;
 			}
 
+			List<Backup> searchFrom;
+			if (isSubsetFilter(filter) && this.lastMatches != null) {
+				searchFrom = this.lastMatches;
+			}
+			else {
+				searchFrom = this.backups;
+				this.lastMatches = null;
+			}
+			candidateCount = searchFrom.Count;
+
 			List<Backup> found = new List<Backup>();
-			foreach (var db in this.backups) {
+			foreach (var db in searchFrom) {
 				if (filter.matchName(db.FullName)) {
 					found.Add(db);
 				}
 			}
+
+			this.lastMatches = found;
 			return found;
 		}
 
