@@ -214,9 +214,12 @@ namespace Fdd
 				this.lastFailedFilter = "";
 			}
 			this.txtResult.Text = String.Join("\r\n", items.ToArray());
-			string status = String.Format("{0} {1} found.", items.Count, items.Count < 2 ? "record" : "records");
+			string status;
 			if (this.show_search_detail) {
 				status = String.Format("{0} {1} found in {2}.", items.Count, items.Count < 2 ? "record" : "records", candidateCount);
+			}
+			else {
+				status = String.Format("{0} {1} found.", items.Count, items.Count < 2 ? "record" : "records");
 			}
 			this.statusBarLabel1.Text = status;
 			this.statusBarLabel2.Text = "Searched at: " + DateTime.Now.ToString("HH:mm:ss");
