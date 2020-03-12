@@ -22,7 +22,7 @@ namespace Fdd
 			else if (cmd.Equals("raw")) {
 				return Cmd.FormatRaw;
 			}
-			else if (cmd.Equals("parse")) {
+			else if (cmd.Equals("parse") || cmd.Equals("format")) {
 				return Cmd.FormatParsed;
 			}
 			else if (cmd.Equals("size")) {
@@ -48,7 +48,7 @@ namespace Fdd
 			help.AppendLine("help:\t Show this HELP info. Same as: ?");
 			help.AppendLine("exit:\t Exit this tool. Same as: quit, close, x, q, c.");
 			help.AppendLine("raw:\t Show name of backup files.");
-			help.AppendLine("parse:\t Show parsed information of back files.");
+			help.AppendLine("parse:\t Show parsed information of back files. Same as: format");
 			help.AppendLine("size:\t Show/hide size of back files.");
 			help.AppendLine("time:\t Show/hide timestamp of last search on status bar.");
 			help.AppendLine("-----------------  -----------------");

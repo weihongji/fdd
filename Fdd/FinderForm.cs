@@ -13,14 +13,15 @@ namespace Fdd
 {
 	public partial class FinderForm : Form
 	{
-		private string lastFilter = "";
-		private string lastFailedFilter = "";
+		private Filter lastFilter;
+		private Filter lastFailedFilter;
 		private List<Backup> backups;
 		private List<Backup> lastMatches;
 		private bool raw_format = false;
 		private bool show_size = true;
 		private bool show_last_search_time = false;
 		private bool show_search_detail = false;
+		private string format_pattern = "";
 
 		// Hard to understand
 		private bool processing_command = false;
@@ -35,6 +36,7 @@ namespace Fdd
 			this.show_size = Util.GetConfigBool("show_size", true);
 			this.show_last_search_time = Util.GetConfigBool("show_last_search_time", false);
 			this.show_search_detail = Util.GetConfigBool("show_search_detail", false);
+			this.format_pattern = Util.GetConfigString("format_pattern");
 
 			// Load backup records
 			loadBackup();
@@ -94,8 +96,8 @@ namespace Fdd
 		}
 
 		private bool resetFilter() {
-			if (!this.lastFilter.Equals(this.lastFailedFilter)) {
-				this.txtFilter.Text = this.lastFilter;
+			if (this.lastFilter != null && !this.lastFilter.Equals(this.lastFailedFilter)) {
+				this.txtFilter.Text = this.lastFilter.Text;
 				this.txtFilter.SelectAll();
 				return true;
 			}
@@ -110,9 +112,9 @@ namespace Fdd
 		}
 
 		private void txtFilter_KeyUp(object sender, KeyEventArgs e) {
-			string filter = this.txtFilter.Text.Trim();
+			var filter = new Filter(this.txtFilter.Text);
 
-			if (isCommand(filter) || this.processing_command) { // Command is entered and has been handled in KeyDown event.
+			if (isCommand(filter.Text) || this.processing_command) { // Command is entered and has been handled in KeyDown event.
 				this.processing_command = false;
 				return;
 			}
@@ -121,15 +123,15 @@ namespace Fdd
 				searchOnUI();
 			}
 			else {
-				if (String.IsNullOrEmpty(filter)) {
+				if (String.IsNullOrEmpty(filter.Text)) {
 					this.statusBarLabel1.Text = "Ready";
 					return;
 				}
 				else if (filter.Equals(this.lastFilter)) {
 					return; // Don't launch a search if the filter is same as that in last search. User just typing control keys like Home/End/Arrow.
 				}
-				else if (isFailedFilter(filter)) {
-					if (filter.Length - this.lastFailedFilter.Length > 10) {
+				else if (filter.isSubsetOf(this.lastFailedFilter)) {
+					if (filter.Text.Length - this.lastFailedFilter.Text.Length > 10) {
 						this.txtResult.Text = "Press '?' and Enter key to show help information.";
 					}
 					return;
@@ -155,26 +157,6 @@ namespace Fdd
 			}
 		}
 
-		private bool isFailedFilter(string filter) {
-			if (this.lastFailedFilter.Length > 0) {
-				return filter.IndexOf(this.lastFailedFilter) >= 0;
-			}
-			else {
-				return false;
-			}
-
-		}
-
-		private bool isSubsetFilter(Filter filter) {
-			if (this.lastFilter.Length > 0) {
-				return filter.Name.IndexOf(this.lastFilter) >= 0;
-			}
-			else {
-				return false;
-			}
-
-		}
-
 		private bool isCommand(string text) {
 			return text.StartsWith(Command.cmd_prefix) || text.Equals("?") || text.Equals("help");
 		}
@@ -192,27 +174,38 @@ namespace Fdd
 			List<string> items = new List<string>(found.Count);
 			string s = "";
 			foreach (var item in found) {
-				s = this.raw_format ? item.FullName : item.ToString();
-				if (this.show_size) {
-					if (item.Size >= 0) {
-						s += String.Format(" - {0:#,0} KB", item.Size / 1024);
+				if (this.raw_format) {
+					s = item.FullName + " at " + item.Location;
+				}
+				else {
+					if (this.format_pattern.Length > 0) {
+						s = item.ToString(format_pattern);
 					}
 					else {
-						s += " - size:N/A";
+						s = item.ToString();
+						if (this.show_size) {
+							if (item.Size >= 0) {
+								s += String.Format(" - {0:#,0} KB", item.Size / 1024);
+							}
+							else {
+								s += " - size:N/A";
+							}
+						}
 					}
 				}
 				items.Add(s);
 			}
 
-			this.lastFilter = filter;
+			this.lastFilter = new Filter(filter);
 			if (items.Count == 0) {
 				if (filter.Length > 0) {
-					this.lastFailedFilter = filter;
+					this.lastFailedFilter = new Filter(filter);
 				}
 			}
 			else {
-				this.lastFailedFilter = "";
+				this.lastFailedFilter = null;
 			}
+			items.Sort();
 			this.txtResult.Text = String.Join("\r\n", items.ToArray());
 			string status;
 			if (this.show_search_detail) {
@@ -238,12 +231,12 @@ namespace Fdd
 			}
 			candidateCount = this.backups.Count;
 
-			if (filter.Name.Length == 0 || filter.Name.Equals("*")) {
+			if (filter.Text.Length == 0 || filter.Text.Equals("*")) {
 				return this.backups;
 			}
 
 			List<Backup> searchFrom;
-			if (isSubsetFilter(filter) && this.lastMatches != null) {
+			if (filter.isSubsetOf(this.lastFilter) && this.lastMatches != null) {
 				searchFrom = this.lastMatches;
 			}
 			else {
@@ -254,7 +247,7 @@ namespace Fdd
 
 			List<Backup> found = new List<Backup>();
 			foreach (var db in searchFrom) {
-				if (filter.matchName(db.FullName)) {
+				if (filter.match(db)) {
 					found.Add(db);
 				}
 			}
@@ -277,7 +270,7 @@ namespace Fdd
 			this.backups.Sort();
 
 			// Clear cache flags every time after backup is loaded.
-			this.lastFailedFilter = "";
+			this.lastFailedFilter = null;
 			this.lastMatches = null;
 		}
 

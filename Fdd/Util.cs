@@ -12,7 +12,7 @@ namespace Fdd
 			var config = System.Configuration.ConfigurationManager.AppSettings[key];
 
 			if (!string.IsNullOrEmpty(config)) {
-				return config;
+				return config.Trim();
 			}
 			return defaultValue;
 		}

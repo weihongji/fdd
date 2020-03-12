@@ -119,6 +119,18 @@ namespace Fdd
 			return String.Format("{0} of {1} ({2})", db, date > DateTime.MinValue ? date.ToString("yyyy-MM-dd") : "N/A", location.Length > 0 ? location : "N/A");
 		}
 
+		public string ToString(string format) {
+			if (String.IsNullOrWhiteSpace(format)) {
+				return ToString();
+			}
+
+			string s = format.Replace("(db)", db)
+				.Replace("(date)", date > DateTime.MinValue ? date.ToString("yyyy-MM-dd") : "N/A")
+				.Replace("(location)", location.Length > 0 ? location : "N/A")
+				.Replace("(size)", size >= 0 ? String.Format("{0:#,0} KB", size / 1024) : "size:N/A");
+			return s;
+		}
+
 		public int CompareTo(Backup o) {
 			return this.SortBy.CompareTo(o.SortBy);
 		}
